@@ -8,7 +8,7 @@ for a model.
 
 ## Read this before anything else — how solid is this evidence?
 
-Everything below comes from 175 Instagram posts by Isaac Flath (@isaac_flath), collected
+Everything below comes from 177 Instagram posts by Isaac Flath (@isaac_flath), collected
 June–November 2026. Four things to hold onto the whole time you read this:
 
 1. **Every test is tiny.** Isaac is showing a demo on one to three pages, not running a
@@ -18,7 +18,7 @@ June–November 2026. Four things to hold onto the whole time you read this:
    description of what was on screen. That description service admits it didn't always
    capture the exact text, numbers, or table cells shown — so some details are closer to
    "roughly this" than "exactly this."
-3. **30 of the 175 posts have no description at all** — only the caption survived. A few of
+3. **30 of the 177 posts have no description at all** — only the caption survived. A few of
    those are real tests whose numbers now have no second source (a redline comparison, a
    wide formula table, a timetable cost comparison). I've left those out rather than guess.
 4. **This is leads, not a leaderboard.** Isaac says this himself: no tool wins on every
@@ -32,7 +32,7 @@ Through the whole report I mark everything one of two ways:
   source describes what happened.
 - **Market-list only, not tested here** — the name shows up on a "what exists in the
   market as of November 2026" reference list in the source, written from general industry
-  knowledge, with no test behind it anywhere in the 175 posts. I will never describe one of
+  knowledge, with no test behind it anywhere in the 177 posts. I will never describe one of
   these as having "done" anything. If you see a name below with no example page attached to
   it, assume it's this category.
 
@@ -76,20 +76,28 @@ cell that spanned both rows, while keeping their error-rate numbers in separate 
 you imported the table as written, both results would get attached to the same model name.
 Docling, tested on the same table, kept the two names apart.
 
-### LightOnOCR — Tested once
+### LightOnOCR (version named in the newest test: LightOnOCR-3-4B) — Tested twice
 **What it is:** A newly released document-reading model. Isaac says openly he was "still
-evaluating it generally" when he posted this — so even by the standards of this report, this
-is thin.
-**What was tested:** A census table with a cell merged across two columns (one column showed
-6.9% for high-growth counties, the other 2.2% for low-growth counties).
-**What it did well:** Returned each number under the correct group, keeping the merge
-intact. Docling, tested on the same table, duplicated both numbers into all four cells and
-lost which number belonged to which group.
-**Evidence level:** One page. Isaac's own framing is "one good sign," not a verdict.
+evaluating it generally" when he posted the first of these — so even by the standards of this
+report, this is thin.
+**What was tested:** (1) A census table with a cell merged across two columns (one column showed
+6.9% for high-growth counties, the other 2.2% for low-growth counties). (2) A handwritten 1924
+diary page, on the line "Left New Haven at 7:37 P.M." — this is the test where the version
+number LightOnOCR-3-4B is actually named.
+**What it did well:** On the census table, returned each number under the correct group, keeping
+the merge intact. Docling, tested on the same table, duplicated both numbers into all four cells
+and lost which number belonged to which group.
+**What the diary test actually shows:** It read the time as "7:37 P.M.", the same as a vendor OCR
+API (Datalab), while a layout tool (Surya) read "9:37 P.M." This is **not** a win — the
+handwritten digit is genuinely ambiguous (7 or 9), Isaac says so, and his pipeline left the value
+unverified rather than siding with the two that agreed. Record it as agreement between two
+readers, not as a correct answer.
+**Evidence level:** Two pages, one of which has no knowable right answer. Isaac's own framing on
+the first was "one good sign," not a verdict.
 
 ### Market-list only, not tested here
 Mistral OCR, PaddleOCR-VL, GLM-OCR, DeepSeek-OCR, Nanonets OCR, FireRed-OCR — none of these
-appear being run on a page anywhere in the 175 posts. They're on the November 2026
+appear being run on a page anywhere in the 177 posts. They're on the November 2026
 market-reference list only.
 
 One partial exception: **PaddleOCR-VL** does get a single mention, but not as a reading
@@ -155,7 +163,7 @@ pipeline test.
 
 ### Market-list only, not tested here
 **GPT-5**, **Claude Sonnet**, **Gemini 3 Pro**, and **InternVL** are named on the market list
-but none of them appear being run on a page anywhere in the 175 posts.
+but none of them appear being run on a page anywhere in the 177 posts.
 
 ---
 
@@ -200,7 +208,7 @@ closest thing in this whole source to a multi-item test rather than a single pag
 
 ### Market-list only, not tested here
 **Azure Document Intelligence**, **Google Document AI**, and **EasyOCR** — none of these
-appear being run anywhere in the 175 posts.
+appear being run anywhere in the 177 posts.
 
 ---
 
@@ -212,19 +220,26 @@ page, so a user can click an answer and jump straight to the spot it came from.
 ### Surya — Tested
 **What it is:** A layout/location tool: it draws a box around a region of text or a table so
 software (or a person) can click through to the source.
-**What was tested:** General layout-finding tasks, including a page with an equation block.
+**What was tested:** General layout-finding tasks, including a page with an equation block; and,
+in the newest test, used as a transcriber on a handwritten 1924 diary line ("Left New Haven at
+7:37 P.M.").
 **What it did well:** Its equation block kept an exponent that a table-rebuilding tool
 (Docling) lost. A box drawn by this kind of tool doesn't have to be a flat rectangle — it can
 follow angled or warped text, so a click lands on the actual words instead of a loose box
 around them.
 **What it got wrong:** Weaker at reading the actual text than specialist readers; on one
 occasion it invented a table that wasn't there.
-**Evidence level:** A couple of specific page mentions, not a sustained test.
+**The diary line — outvoted, not proven wrong:** It read the time as "9:37 P.M." where a vendor
+OCR API (Datalab) and LightOnOCR-3-4B both read "7:37 P.M." Nobody knows which is right: the
+handwritten digit is ambiguous, and Isaac's pipeline held the value unverified rather than going
+with the majority. What Surya's disagreement did was useful on its own — it's what flagged the
+field for human review.
+**Evidence level:** A few specific page mentions, not a sustained test.
 
 ### PP-DocLayoutV3 — named, not clearly tested
 The source mentions this as one of the "newer" layout tools that also predicts the *order*
 regions should be read in — but it's named as an example of the category ("and similar"),
-with no specific page or result attached to it in the 175 posts. Treat as a lead, not
+with no specific page or result attached to it in the 177 posts. Treat as a lead, not
 something Isaac tested and reported on.
 
 ---
@@ -291,6 +306,10 @@ figure, where the cheap classical tool dropped it. The track-changes feature was
 handwritten edit, where it caught the inserted word but dropped the deleted one (the vendor's
 own examples are digital revisions, so handwriting may be outside what it's built for).
 "Datalab Accurate" was tested on whether its bounding regions can follow angled, warped text.
+The general OCR API comes up again in the newest test, on a handwritten 1924 diary line: it read
+the departure time as "7:37 P.M.", the same as LightOnOCR-3-4B, where a layout tool (Surya) read
+"9:37 P.M." Treat that as two readers agreeing, not as a correct answer — the digit on the page
+is ambiguous and the value was held for review.
 **Why this matters for you:** If someone tells you "we use Datalab," ask which product —
 the three behave differently and were tested on different things.
 
@@ -354,7 +373,7 @@ into, and it reported this without flagging anything as wrong.
 |---|---|---|---|---|
 | Chandra | Document-specialist model | Yes, several times | Degraded cable text, messy handwriting | Didn't say which word was deleted in an edit; mislabelled Fed table headers |
 | MinerU | Local-index tool | Yes, once-twice | Retrieving one clause from a 23-page agreement | Merged two similarly-named models into one cell |
-| LightOnOCR | Document-specialist model | Yes, once (Isaac still evaluating) | Kept a merged census cell's two numbers separate | — (too little evidence) |
+| LightOnOCR (3-4B) | Document-specialist model | Yes, twice (Isaac still evaluating) | Kept a merged census cell's two numbers separate | — (its other test, an ambiguous handwritten digit, has no knowable right answer) |
 | Mistral OCR, PaddleOCR-VL*, GLM-OCR, DeepSeek-OCR, olmOCR, Nanonets OCR, FireRed-OCR | Document-specialist models | No — market list only | — | — |
 | Gemini (3.5 Flash) | General vision model | Yes, the most-tested model overall | Handwritten name + 6 checkboxes on a bank form | Invented a pill-bottle copyright line; left a temperature condition blank |
 | Qwen (3 VL) | General vision model | Yes, several times | Kept a grey cell's "not applicable" meaning | No clean failure case recorded |
@@ -362,7 +381,7 @@ into, and it reported this without flagging anything as wrong.
 | AWS Textract | Classic OCR service | Yes, several times | Read a one-letter-per-box surname correctly | Dropped plus/minus signs from a printed formula |
 | Tesseract | Classic OCR service | Yes, twice | — | Lost an entire table row, including a $67,521 figure |
 | Azure Document Intelligence, Google Document AI, EasyOCR | Classic OCR services | No — market list only | — | — |
-| Surya | Layout/location tool | Yes, a couple of mentions | Kept an exponent on an equation box | Once invented a table |
+| Surya | Layout/location tool | Yes, a few mentions | Kept an exponent on an equation box; its disagreement flagged a diary time for review | Once invented a table; read a diary time as 9:37 where two readers read 7:37 (page is ambiguous) |
 | PP-DocLayoutV3 | Layout/location tool | No — named only | — | — |
 | Ovis-VL-Embedding | Search/embedding model | Yes, twice | Found an abbreviated place name on a map | — |
 | Docling | Table-rebuilding tool | Yes, extensively | Fixed reading order using section lines | Merged two states' figures into one cell |
@@ -382,6 +401,6 @@ into, and it reported this without flagging anything as wrong.
 None of this tells you which model to use. It tells you what to go check on your own
 pages. Every "did well" above is a reason to try that model on a similar page of yours;
 every "got wrong" is a reason to build a check for that specific failure before you trust
-any model's output blind. Isaac's whole point, repeated across 175 posts, is that the
+any model's output blind. Isaac's whole point, repeated across 177 posts, is that the
 reader that wins on his page might lose on yours — so the test is yours to run, not his to
 hand you.
